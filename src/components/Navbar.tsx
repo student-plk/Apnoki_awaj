@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -28,10 +29,8 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-lime to-deep-purple rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">A</span>
-            </div>
-            <span className="text-xl font-semibold text-deep-purple">Apno की Awaj</span>
+            <img src={logo} alt="Apno ki Awaj Logo" className="w-8 h-8 rounded-lg object-cover" />
+            <span className="text-xl font-semibold text-deep-purple">Apno ki Awaj</span>
           </Link>
 
           {/* Desktop Navigation */}

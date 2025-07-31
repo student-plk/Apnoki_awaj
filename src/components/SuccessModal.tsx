@@ -30,7 +30,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ isOpen, onClose }) => {
         </h2>
         
         <p className="text-gray-600 mb-6">
-          Welcome to Apno की Awaj! You can now access all premium features including voice cloning, 24/7 support, and mirror self-talk. Your first login gives you full access to explore and connect with your loved ones.
+          Welcome to Apno ki Awaj! You can now access all premium features including voice cloning, 24/7 support, and mirror self-talk. Your first login gives you full access to explore and connect with your loved ones.
         </p>
         
         <button
