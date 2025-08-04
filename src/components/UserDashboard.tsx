@@ -96,7 +96,9 @@ const UserDashboard: React.FC = () => {
                 </div>
               </div>
               <div className="mt-4 text-sm text-gray-500">
-                Member since: {userProfile.createdAt.toDate().toLocaleDateString()}
+                Member since: {userProfile.createdAt && typeof userProfile.createdAt.toDate === 'function' 
+                  ? userProfile.createdAt.toDate().toLocaleDateString() 
+                  : 'Unknown'}
               </div>
             </div>
           )}

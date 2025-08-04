@@ -22,6 +22,25 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
     setIsLoading(true);
     setError('');
     
+    // Basic validation
+    if (!email.trim()) {
+      setError('Please enter your email address.');
+      setIsLoading(false);
+      return;
+    }
+    
+    if (!password.trim()) {
+      setError('Please enter your password.');
+      setIsLoading(false);
+      return;
+    }
+    
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters long.');
+      setIsLoading(false);
+      return;
+    }
+    
     try {
       if (isSignUp) {
         // Sign up
@@ -38,7 +57,24 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
       setPassword('');
     } catch (error: any) {
       setIsLoading(false);
-      setError(error.message || 'An error occurred. Please try again.');
+      // Provide more user-friendly error messages
+      let errorMessage = 'An error occurred. Please try again.';
+      
+      if (error.code === 'auth/user-not-found') {
+        errorMessage = 'No account found with this email. Please sign up instead.';
+      } else if (error.code === 'auth/wrong-password') {
+        errorMessage = 'Incorrect password. Please try again.';
+      } else if (error.code === 'auth/email-already-in-use') {
+        errorMessage = 'An account with this email already exists. Please sign in instead.';
+      } else if (error.code === 'auth/weak-password') {
+        errorMessage = 'Password should be at least 6 characters long.';
+      } else if (error.code === 'auth/invalid-email') {
+        errorMessage = 'Please enter a valid email address.';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      setError(errorMessage);
     }
   };
 

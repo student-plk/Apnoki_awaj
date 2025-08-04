@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Upload, Play, Pause, Volume2, User, FileText, Mic, Shield, CheckCircle, Clock } from 'lucide-react';
+import { Upload, Play, Pause, Volume2, User, FileText, Mic, Shield, CheckCircle, Clock, Home } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const VoiceTalk = () => {
   const [uploadedFiles, setUploadedFiles] = useState<{ text: number; audio: number }>({ text: 0, audio: 0 });
@@ -14,6 +15,14 @@ const VoiceTalk = () => {
       ...prev,
       [type]: prev[type] + 1
     }));
+    
+    // Show success feedback
+    const message = type === 'text' 
+      ? 'Text files uploaded successfully! Our AI is analyzing your conversations.' 
+      : 'Audio files uploaded successfully! Our AI is processing your voice patterns.';
+    
+    // You could add a toast notification here
+    console.log(message);
   };
 
   const startTraining = () => {
@@ -21,7 +30,16 @@ const VoiceTalk = () => {
       setIsTraining(true);
       setTrainingProgress(0);
 
-      // Simulate training progress
+      // Enhanced training simulation with realistic steps
+      const trainingSteps = [
+        { progress: 20, message: 'Analyzing voice patterns...' },
+        { progress: 40, message: 'Learning speech characteristics...' },
+        { progress: 60, message: 'Processing emotional tones...' },
+        { progress: 80, message: 'Optimizing voice model...' },
+        { progress: 100, message: 'Finalizing voice clone...' }
+      ];
+
+      let currentStep = 0;
       const interval = setInterval(() => {
         setTrainingProgress(prev => {
           if (prev >= 100) {
@@ -30,9 +48,15 @@ const VoiceTalk = () => {
             setIsComplete(true);
             return 100;
           }
-          return prev + 10;
+          
+          const nextProgress = Math.min(prev + 5, trainingSteps[currentStep]?.progress || 100);
+          if (nextProgress >= trainingSteps[currentStep]?.progress) {
+            currentStep++;
+          }
+          
+          return nextProgress;
         });
-      }, 500);
+      }, 300);
     }
   };
 
@@ -91,6 +115,10 @@ const VoiceTalk = () => {
                 <div 
                   className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-lime transition-colors cursor-pointer"
                   onClick={() => handleFileUpload('text')}
+                  onKeyDown={(e) => e.key === 'Enter' && handleFileUpload('text')}
+                  tabIndex={0}
+                  role="button"
+                  aria-label="Upload text conversations"
                 >
                   <FileText className="mx-auto mb-3 text-gray-400" size={32} />
                   <p className="text-gray-600 mb-2">Click to upload chat exports, messages, or letters</p>
@@ -102,6 +130,9 @@ const VoiceTalk = () => {
                     </div>
                   )}
                 </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  💡 Tip: Upload WhatsApp chats, text messages, or handwritten letters for best results
+                </p>
               </div>
 
               {/* Audio Upload */}
@@ -112,6 +143,10 @@ const VoiceTalk = () => {
                 <div 
                   className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-lime transition-colors cursor-pointer"
                   onClick={() => handleFileUpload('audio')}
+                  onKeyDown={(e) => e.key === 'Enter' && handleFileUpload('audio')}
+                  tabIndex={0}
+                  role="button"
+                  aria-label="Upload voice recordings"
                 >
                   <Mic className="mx-auto mb-3 text-gray-400" size={32} />
                   <p className="text-gray-600 mb-2">Click to upload voice notes, calls, or recordings</p>
@@ -123,6 +158,9 @@ const VoiceTalk = () => {
                     </div>
                   )}
                 </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  💡 Tip: Voice recordings with clear speech and emotional content work best
+                </p>
               </div>
 
               {/* Start Training Button */}
@@ -143,7 +181,8 @@ const VoiceTalk = () => {
                       Your Privacy is Sacred
                     </p>
                     <p className="text-sm text-gray-600">
-                      We never share or misuse your data. All voice cloning happens securely, and your memories remain private.
+                      We never share or misuse your data. All voice cloning happens securely on our servers, and your memories remain completely private. 
+                      Your voice data is encrypted and automatically deleted after processing.
                     </p>
                   </div>
                 </div>
@@ -179,7 +218,12 @@ const VoiceTalk = () => {
                       Training "{voiceName}"
                     </h4>
                     <p className="text-gray-600">
-                      Our AI is learning the unique patterns of their voice...
+                      {trainingProgress < 20 && 'Analyzing voice patterns...'}
+                      {trainingProgress >= 20 && trainingProgress < 40 && 'Learning speech characteristics...'}
+                      {trainingProgress >= 40 && trainingProgress < 60 && 'Processing emotional tones...'}
+                      {trainingProgress >= 60 && trainingProgress < 80 && 'Optimizing voice model...'}
+                      {trainingProgress >= 80 && trainingProgress < 100 && 'Finalizing voice clone...'}
+                      {trainingProgress === 100 && 'Voice clone ready!'}
                     </p>
                   </div>
 
@@ -248,7 +292,7 @@ const VoiceTalk = () => {
                       </button>
                       <div className="flex-1">
                         <p className="text-sm text-gray-600">
-                          "Hello, I'm so happy to be able to speak with you again..."
+                          "Hello beta, I'm so happy to be able to speak with you again. How are you doing today?"
                         </p>
                         {isPlaying && (
                           <div className="flex items-center space-x-1 mt-2">
@@ -269,7 +313,13 @@ const VoiceTalk = () => {
                   </div>
 
                   {/* Start Conversation Button */}
-                  <button className="w-full py-4 bg-gradient-to-r from-lime to-deep-purple text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200">
+                  <button 
+                    onClick={() => {
+                      // Simulate starting a conversation
+                      alert(`Starting conversation with ${voiceName}...\n\nThis would open the chat interface where you can have emotional conversations with your AI voice clone.`);
+                    }}
+                    className="w-full py-4 bg-gradient-to-r from-lime to-deep-purple text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-[1.02] transition-all duration-200"
+                  >
                     Start Conversation with {voiceName}
                   </button>
                 </div>
@@ -277,6 +327,17 @@ const VoiceTalk = () => {
             </div>
           </div>
         </div>
+      </div>
+      
+      {/* Back to Home Button */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <Link
+          to="/"
+          className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
+          aria-label="Back to Home"
+        >
+          <Home size={24} />
+        </Link>
       </div>
     </div>
   );

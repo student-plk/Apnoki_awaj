@@ -1,5 +1,6 @@
 import React from 'react';
 import { Lock, Star, Zap, Heart, Crown, Bell, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Premium = () => {
   const premiumFeatures = [
@@ -72,7 +73,12 @@ const Premium = () => {
             
             {/* Notify Button */}
             <div className="space-y-4">
-              <button className="px-8 py-4 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-2 mx-auto">
+              <button 
+                onClick={() => {
+                  alert('Thank you for your interest! We\'ll notify you as soon as Premium features are available. Your emotional wellbeing is our priority.');
+                }}
+                className="px-8 py-4 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center space-x-2 mx-auto"
+              >
                 <Bell size={20} />
                 <span>Get Notified When Premium Launches</span>
               </button>
@@ -130,9 +136,12 @@ const Premium = () => {
             <p className="text-gray-600 mb-6">
               While you wait for Premium, continue using our free features to stay connected with your loved ones. Every conversation is a step toward healing.
             </p>
-            <button className="px-8 py-3 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+            <Link 
+              to="/voice-talk"
+              className="inline-block px-8 py-3 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+            >
               Continue with Free Features
-            </button>
+            </Link>
           </div>
         </div>
       </div>

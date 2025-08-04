@@ -128,7 +128,9 @@ const AdminPanel: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {user.createdAt.toDate().toLocaleDateString()}
+                      {user.createdAt && typeof user.createdAt.toDate === 'function' 
+                        ? user.createdAt.toDate().toLocaleDateString() 
+                        : 'Unknown'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {user.usageStats.totalSessions}
@@ -140,7 +142,9 @@ const AdminPanel: React.FC = () => {
                       {user.usageStats.conversationsStarted}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {user.lastLoginAt.toDate().toLocaleDateString()}
+                      {user.lastLoginAt && typeof user.lastLoginAt.toDate === 'function' 
+                        ? user.lastLoginAt.toDate().toLocaleDateString() 
+                        : 'Unknown'}
                     </td>
                   </tr>
                 ))}

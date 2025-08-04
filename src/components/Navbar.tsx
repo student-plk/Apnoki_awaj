@@ -19,6 +19,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Features', path: '/features' },
     { name: 'Voice Talk', path: '/voice-talk' },
+    { name: 'Team', path: '/team' },
   ];
 
   return (
@@ -29,12 +30,12 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <img src={logo} alt="Apno ki Awaj Logo" className="w-8 h-8 rounded-lg object-cover" />
-            <span className="text-xl font-semibold text-deep-purple">Apno ki Awaj</span>
+            <img src={logo} alt="Apno ki Awaj Logo" className="w-6 h-6 md:w-8 md:h-8 rounded-lg object-cover" />
+            <span className="text-lg md:text-xl font-semibold text-deep-purple">Apno ki Awaj</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -48,7 +49,7 @@ const Navbar = () => {
             ))}
             <Link
               to="/premium"
-              className="px-6 py-2 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-medium"
+              className="px-4 lg:px-6 py-2 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-medium text-sm lg:text-base"
             >
               Get Premium
             </Link>
@@ -66,13 +67,13 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden absolute top-16 left-0 right-0 bg-white shadow-lg rounded-b-2xl border-t">
-            <div className="px-4 py-6 space-y-4">
+            <div className="px-4 py-6 space-y-3">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block text-gray-700 hover:text-deep-purple transition-colors duration-200 font-medium ${
+                  className={`block text-gray-700 hover:text-deep-purple transition-colors duration-200 font-medium py-2 ${
                     location.pathname === link.path ? 'text-deep-purple' : ''
                   }`}
                 >
@@ -82,7 +83,7 @@ const Navbar = () => {
               <Link
                 to="/premium"
                 onClick={() => setIsMenuOpen(false)}
-                className="block w-full text-center px-6 py-3 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full hover:shadow-lg transition-all duration-200 font-medium"
+                className="block w-full text-center px-4 py-3 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full hover:shadow-lg transition-all duration-200 font-medium text-sm"
               >
                 Get Premium
               </Link>

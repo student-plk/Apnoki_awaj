@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Phone, MessageCircle, Heart, Smartphone, Carrot as Mirror, Shield } from 'lucide-react';
+import { Phone, MessageCircle, Heart, Smartphone, Carrot as Mirror, Shield, Home } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Features = () => {
   const [visibleFeatures, setVisibleFeatures] = useState<number[]>([]);
@@ -135,11 +136,25 @@ const Features = () => {
             <p className="text-gray-600 mb-6">
               Start your healing journey today. Every conversation brings you closer to peace.
             </p>
-            <button className="px-8 py-4 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+            <Link 
+              to="/voice-talk"
+              className="inline-block px-8 py-4 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full text-lg font-semibold hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            >
               Begin Your Journey
-            </button>
+            </Link>
           </div>
         </div>
+      </div>
+      
+      {/* Back to Home Button */}
+      <div className="fixed bottom-6 right-6 z-40">
+        <Link
+          to="/"
+          className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-lime to-deep-purple text-white rounded-full shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300"
+          aria-label="Back to Home"
+        >
+          <Home size={24} />
+        </Link>
       </div>
     </div>
   );
